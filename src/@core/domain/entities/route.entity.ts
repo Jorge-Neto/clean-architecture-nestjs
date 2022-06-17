@@ -2,75 +2,96 @@ import crypto from 'crypto';
 
 export type LatLng = { lat: number; lng: number };
 
+//class, type, interface
+
 export type RouteProps = {
-    title: string;
-    startPosition: LatLng;
-    endPosition: LatLng;
-    points?: LatLng[];
-}
+  title: string;
+  startPosition: LatLng;
+  endPosition: LatLng;
+  points?: LatLng[];
+};
 
 export class Route {
-    public readonly id: string;
-    public props: Required<RouteProps>;
+  public readonly id: string;
+  public props: Required<RouteProps>;
 
-    constructor(props: RouteProps, id?: string) {
-        this.id = id || crypto.randomUUID();
-        this.props = {
-            ...props,
-            points: props.points || [],
-        }
+  private constructor(props: RouteProps, id?: string) {
+    this.id = id || crypto.randomUUID();
+
+    if (!props) {
+      //@ts-expect-error used for ORM
+      this.props = {};
+      return;
     }
 
-    updateTitle(value: string) {
-        this.title = value;
-    }
+    this.props = {
+      ...props,
+      points: props.points || [],
+    };
+  }
 
-    updatePosition(startPosition: LatLng, endPosition: LatLng) {
-        this.startPosition = startPosition;
-        this.endPosition = endPosition;
-    }
+  static create(props: RouteProps, id?: string) {
+    return new Route(props, id);
+  }
 
-    updatePoints(points: LatLng[]) {
-        this.points = points;
-    }
+  updateTitle(title: string) {
+    this.title = title;
+    //mudar pra maiusculo
+    //valor alguns caracteres
+    //validacoes
+  }
 
-    get title() {
-        return this.props.title;
-    }
+  updatePosition(startPosition: LatLng, endPosition: LatLng) {
+    this.startPosition = startPosition;
+    this.endPosition = endPosition;
+    //mudar pra maiusculo
+    //valor alguns caracteres
+    //validacoes
+  }
 
-    private set title(value: string) {
-        this.props.title = value;
-    }
+  updatePoints(points: LatLng[]) {
+    this.points = points;
+    //mudar pra maiusculo
+    //valor alguns caracteres
+    //validacoes
+  }
 
-    get startPosition() {
-        return this.props.startPosition;
-    }
+  get title() {
+    return this.props.title;
+  }
 
-    private set startPosition(value: LatLng) {
-        this.props.startPosition = value;
-    }
+  private set title(value: string) {
+    this.props.title = value;
+  }
 
-    get endPosition() {
-        return this.props.endPosition;
-    }
+  get startPosition() {
+    return this.props.startPosition;
+  }
 
-    private set endPosition(value: LatLng) {
-        this.props.endPosition = value;
-    }
+  private set startPosition(value: LatLng) {
+    this.props.startPosition = value;
+  }
 
-    get points() {
-        return this.props.points;
-    }
+  get endPosition() {
+    return this.props.endPosition;
+  }
 
-    private set points(value: LatLng[]) {
-        this.props.points = value;
-    }
+  private set endPosition(value: LatLng) {
+    this.props.endPosition = value;
+  }
 
-    toJSON() {
+  get points() {
+    return this.props.points;
+  }
 
-        return {
-            id: this.id,
-            ...this.props,
-        };
-    }
+  private set points(value: LatLng[]) {
+    this.props.points = value;
+  }
+
+  toJSON() {
+    return {
+      id: this.id,
+      ...this.props,
+    };
+  }
 }
