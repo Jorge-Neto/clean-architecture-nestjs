@@ -12,7 +12,7 @@ describe('RouteInMemoryRepository', () => {
       startPosition: { lat: 0, lng: 0 },
       endPosition: { lat: 1, lng: 2 },
     };
-    const route = new Route(routeProps);
+    const route = Route.create(routeProps);
     await repository.insert(route);
     expect(repository.items).toHaveLength(1);
     expect(repository.items).toStrictEqual([route]);

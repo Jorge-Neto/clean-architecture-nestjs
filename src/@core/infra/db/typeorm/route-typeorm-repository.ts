@@ -2,7 +2,7 @@ import { RouteRepositoryInterface } from '../../../domain/repositories/route-rep
 import { Repository } from 'typeorm';
 import { Route } from '../../../domain/entities/route.entity';
 
-class RouteTypeOrmRepository implements RouteRepositoryInterface {
+export class RouteTypeOrmRepository implements RouteRepositoryInterface {
   constructor(private ormRepository: Repository<Route>) {}
 
   async insert(route: Route): Promise<void> {

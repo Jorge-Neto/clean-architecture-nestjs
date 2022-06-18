@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import { ListAllRoutesUseCase } from 'src/@core/application/usecase/list-all-routes.use-case';
 import { CreateRouteUseCase } from '../../../application/usecase/create-route.use-case';
-import { RouteInMemoryRepository } from '../../db/route-in-memory.repository';
+import { RouteInMemoryRepository } from '../../db/in-memory/route-in-memory.repository';
 
 const app: Express = express();
 app.use(express.json());
